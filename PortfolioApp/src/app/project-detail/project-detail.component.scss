@@ -33,11 +33,14 @@ section {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     color: #333;
-    font-size: 16px;
+    // font-size: 16px;
     line-height: 1.5;
     text-align: left;
     text-decoration: none;
     display: block !important;
+    @include transition(.6s all ease-in-out);
+    // transform: translateY(50px);
+
 
     // &:hover {
     //   transform: scale(1.05);
@@ -51,7 +54,7 @@ section {
   }
   .item {
     border: 5px solid purple;
-    background: red;
+    background: rgba(249, 144, 144, 0.351);
     // @include transition(.6s all ease-in-out);
     // transform: scale(2);
     display: block !important;

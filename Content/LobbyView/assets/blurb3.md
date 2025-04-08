@@ -1,1 +1,0 @@
-I created a design that appeared customized to each client. In reality, it was a thoughtfully-constructed template. To further enhance efficiency, I implemented a simple "New Client Request Form" enabling a quick turnaround time when working with the business development team on new client proposals.

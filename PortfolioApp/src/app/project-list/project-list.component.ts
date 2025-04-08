@@ -21,11 +21,11 @@ import { LoadingComponent } from '../loading/loading.component';
 })
 export class ProjectListComponent {
   projects: Project[] = [];
-  newProjectForm: FormGroup;
+  // newProjectForm: FormGroup;
   showFirst: boolean = false;
   showLast: boolean = false;
   columnNum = 2;
-  @ViewChild('form') myNgForm = null; // just to call resetForm method
+  // @ViewChild('form') myNgForm = null; // just to call resetForm method
 
   constructor(private projectService: ProjectService,
               private dialog: MatDialog,
@@ -34,10 +34,10 @@ export class ProjectListComponent {
               private  mq: BreakpointObserver,
               private media: MediaObserver
             ) {
-    this.newProjectForm = this.formBuilder.group({
-      'name': ['', [Validators.required]],
-      'alterEgo': ['', [Validators.required]]
-    });
+    // this.newProjectForm = this.formBuilder.group({
+    //   'name': ['', [Validators.required]],
+    //   'alterEgo': ['', [Validators.required]]
+    // });
 
     this.projectService.getAllProjects().subscribe((projects: Array<Project>) => {
       this.projects = projects.sort((a, b) => {

@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
+    "start:prod": "ng build --configuration production && serve -s dist/portfolio-app",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -37,7 +39,7 @@
     "@types/aos": "^3.0.7",
     "@types/jasmine": "~5.1.0",
     "@types/scrollreveal": "^0.0.11",
-    "aos": "^3.0.0-beta.6",
+    "aos": "^2.3.4",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

@@ -1,15 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, AfterViewInit, } from '@angular/core';
 import { Project } from '../shared/project.model';
 import { ProjectService } from '../shared/project.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import * as AOS from 'aos';
-
-// import 'aos/dist/aos.css';
+// import * as AOS from 'aos';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { NgsScrollReveal } from 'ngx-scrollreveal/services';
 // import { NgsRevealModule } from 'ng-scrollreveal';
+import { ScrollFadeInOutService } from '../shared/scroll-fade-in-out.service';
 import { ScrollTopService } from '../shared/scroll-top.service';
 import { NgsRevealConfig } from 'ng-scrollreveal';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 import { ProjectHeaderComponent } from '../project-header/project-header.component';
 import { ProjectSectionNotesComponent } from '../project-section-notes/project-section-notes.component';
 import { ProjectSectionCenteredQuoteComponent } from '../project-section-centered-quote/project-section-centered-quote.component';
@@ -41,6 +49,21 @@ import { ProjectSectionImageTextRightComponent } from '../project-section-image-
   ],
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.scss',
+  animations: [
+    trigger('scrollAnimation', [
+      state('show', style({
+        opacity: 1,
+        // transform: 'translateX(0)',
+      })),
+      state('hide', style({
+        opacity: 0.65,
+        // transform: 'translateY(-150%)'
+      })),
+      transition('show => hide', animate('700ms ease-out')),
+      transition('hide => show', animate('800ms ease-out'))
+      // transition('hide => show', animate('2000ms linear 1000ms'))
+    ])
+  ],
   providers: [ProjectService, ScrollTopService, NgsRevealConfig]
 })
 export class ProjectDetailComponent implements OnInit {
@@ -49,9 +72,12 @@ export class ProjectDetailComponent implements OnInit {
   type: any;
 
 
-  constructor(private projectService: ProjectService,
+  constructor(
+    private projectService: ProjectService,
     private activatedRoute: ActivatedRoute,
     private ScrollTopService: ScrollTopService,
+    private elRef: ElementRef,
+    private scrollFadeService: ScrollFadeInOutService,
     // private ngsScrollReveal: NgsScrollReveal,
     // private aos: Aos,
     // private aosConfig: NgsScrollReveal,
@@ -73,7 +99,7 @@ export class ProjectDetailComponent implements OnInit {
     //  config.duration = 500;
     //  config.easing = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
     //  config.reset = true;
-    //  config.viewFactor = 0.2;
+     config.viewFactor = 0.2;
 
     // test defaults
     config.origin = 'bottom';
@@ -90,7 +116,7 @@ export class ProjectDetailComponent implements OnInit {
     config.rotate = { x: 0, y: 0, z: 0 };
 
     // Starting opacity value, before transitioning to the computed opacity.
-    config.opacity = 0;
+    // config.opacity = 0;
 
     // Starting scale value, will transition from this value to 1
     config.scale = 1;
@@ -154,17 +180,17 @@ export class ProjectDetailComponent implements OnInit {
     // setTimeout(function() {
     // console.log('In ngAfterViewInit before setinterval called.');
     
-    AOS.init();
+    // AOS.init();
 
     // call service
     this.ScrollTopService.setScrollTop();
 
-    // ScrollReveal().reveal('.item', {
-    //   duration: 1000,
-    //   delay: 100,
-    //   distance: '10px',
-    //   easing: 'ease-in-out'
-    // });
+    ScrollReveal().reveal('.item', {
+      duration: 1000,
+      delay: 100,
+      distance: '10px',
+      easing: 'ease-in-out'
+    });
     
     //  }, 1000);
     // this.ScrollTopService.setScrollTop();
@@ -177,4 +203,18 @@ export class ProjectDetailComponent implements OnInit {
     // });
     // this.ngsScrollReveal.reveal('.item', {
   }
+
+  ngAfterViewInit() {
+    // Apply the fade effect to a specific element.
+    // For example, assume the element has an id of 'fade-element'
+    const element = this.elRef.nativeElement.querySelector('#fade-element');
+    if (element) {
+      this.scrollFadeService.applyFadeInOutOnScroll(element);
+    }
+  }
+
+  ngOnDestroy() {
+    this.scrollFadeService.clearScrollListener();
+  }
+  
 }

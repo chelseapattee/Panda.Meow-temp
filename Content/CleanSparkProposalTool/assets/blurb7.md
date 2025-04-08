@@ -1,1 +1,0 @@
-Since our company still needed this tool as an internal resource (with the option to license it as an additional revenue stream), we resumed developing the tablet version so our engineers could easily enter the information while surveying on site.

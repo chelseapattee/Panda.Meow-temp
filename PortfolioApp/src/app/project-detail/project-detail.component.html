@@ -12,27 +12,41 @@
           [overview]="section.attributes.overview"></project-section-notes>
 
         <div [ngSwitch]="section.type"
-         data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="center-bottom">
+          id="fade-element"
+          class="item"
+          data-scroll-reveal="enter">
           <project-section-image-text *ngSwitchCase="'image-text'"
-            class="item"
+            class="item" 
+            id="fade-element"
+            data-scroll-reveal="enter"
             [header]="section.attributes.header"
             [image]="asset(section.attributes.image) ?? undefined"
             [paragraphs]="section.attributes.paragraphs">
           </project-section-image-text>
   
-          <project-section-image-text-right *ngSwitchCase="'image-text-right'"
+          <!-- <project-section-image-text-right *ngSwitchCase="'image-text-right'"
             class="item" 
             data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="center-bottom"
+            [header]="section.attributes.header"
+            [content]="asset(section.attributes.content) ?? undefined"
+            [image]="asset(section.attributes.image) ?? undefined"></project-section-image-text-right> -->
+
+            <project-section-image-text-right *ngSwitchCase="'image-text-right'"
+            class="item" 
+            id="fade-element"
             [header]="section.attributes.header"
             [content]="asset(section.attributes.content) ?? undefined"
             [image]="asset(section.attributes.image) ?? undefined"></project-section-image-text-right>
   
           <project-section-centered-text *ngSwitchCase="'centered-text'"
             class="item"
+            id="fade-element"
             [content]="asset(section.attributes.content) ?? undefined"></project-section-centered-text>
   
           <project-section-centered-quote *ngSwitchCase="'centered-quote'"
             class="item"
+            id="fade-element"
+
             [content]="section.attributes.content"></project-section-centered-quote>
   
           <!-- <project-section-centered-image *ngSwitchCase="'centered-image'"
@@ -42,6 +56,7 @@
   
           <project-section-two-images *ngSwitchCase="'two-images'"
             class="item"
+         
             [left]="asset(section.attributes.left) ?? undefined"
             [captionLT]="section.attributes.captionLT"
             [right]="asset(section.attributes.right) ?? undefined"

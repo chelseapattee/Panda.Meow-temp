@@ -15,12 +15,12 @@ export class ScrollTopService {
     if (isPlatformBrowser(this.platformId)) {
       this.router.events.pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-     ).subscribe((event: NavigationEnd) => {
-        setTimeout(function() {
-          console.log('scroll-top.service.ts: In ngAfterViewInit before setinterval called.');
-          // call service
+      ).subscribe((event: NavigationEnd) => {
+        setTimeout(() => {
+          console.log('scroll-top.service.ts: In ngAfterViewInit before setInterval called.');
+          // Call service
           window.scroll(0, 0);
-         }, 0);
+        }, 0);
       });
     }
   }
