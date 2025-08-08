@@ -1,0 +1,100 @@
+.projects {
+  width: 100vw;
+  min-height: 100vh;
+  background: #222;
+  margin: 0;
+  padding: 0;
+
+  &__header {
+    width: 100vw;
+    background: #181818;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2vw;
+    height: 56px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    gap: 0.75rem;
+  }
+
+  &__name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-left: 0.5rem;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    li {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 400;
+        opacity: 0.85;
+        transition: opacity 0.2s, color 0.2s;
+        &.active, &:hover {
+          opacity: 1;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 0.5rem;
+    padding: 1.5rem 1vw 2rem 1vw;
+    background: #222;
+  }
+
+  @media (max-width: 700px) {
+    &__header {
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      padding: 0.5rem 1vw;
+    }
+    &__links {
+      gap: 1.2rem;
+    }
+    &__name {
+      font-size: 0.9rem;
+    }
+    &__grid {
+      grid-template-columns: 1fr;
+      padding: 1rem 0.5vw 1.5rem 0.5vw;
+    }
+  }
+} 
