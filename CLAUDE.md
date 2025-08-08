@@ -82,3 +82,10 @@ Get the keys by running `supabase status` after starting the local environment.
 - Unit tests for components using Jest and Testing Library
 - Test files located in `__tests__/` directories
 - Coverage reports generated in `coverage/` directory
+- Run specific tests: `npm test -- --testPathPattern=ComponentName`
+
+## Cursor Rules Integration
+This repository includes Cursor rules in `.cursor/rules/` that provide structured workflows:
+- `create-prd.mdc`: Guidelines for creating Product Requirements Documents
+- `generate-tasks.mdc`: Task list generation from PRDs
+- `process-task-list.mdc`: Task management and completion protocols
