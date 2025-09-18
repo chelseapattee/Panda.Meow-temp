@@ -20,7 +20,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint:scss": "stylelint 'src/**/*.scss'"
+    "lint:scss": "stylelint 'src/**/*.scss'",
+    "update-seed": "node update-seed-file.js",
+    "export-projects": "node export-projects-to-seed.js",
+    "setup-admin": "node setup-after-reset.js"
   },
   "eslintConfig": {
     "extends": [

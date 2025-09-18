@@ -1,13 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import projects from '../data/projects';
+import { getProjects } from '../api/projects';
+import { subscribeToProjectChanges } from '../utils/projectSync';
+import fallbackProjects from '../data/projects';
 import './Navbar.scss';
 
 const Navbar = () => {
   const location = useLocation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const isProjectDetail = /^\/projects\/[\w-]+$/.test(location.pathname);
+  const [projects, setProjects] = useState(fallbackProjects);
+  const isProjectDetail = /^\/projects\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(location.pathname) || /^\/projects\/[\w-]+$/.test(location.pathname);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const data = await getProjects();
+        setProjects(data || fallbackProjects);
+      } catch (err) {
+        console.error('Failed to fetch projects for navbar:', err);
+        // Use fallback data if database fails
+        setProjects(fallbackProjects);
+      }
+    }
+    fetchProjects();
+  }, []);
+
+  // Refresh projects when location changes (helps catch new projects)
+  useEffect(() => {
+    if (location.pathname === '/projects' || isProjectDetail) {
+      async function refreshProjects() {
+        try {
+          const data = await getProjects();
+          if (data && data.length !== projects.length) {
+            setProjects(data || fallbackProjects);
+          }
+        } catch (err) {
+          // Silently fail - don't spam console on navigation
+        }
+      }
+      refreshProjects();
+    }
+  }, [location.pathname, isProjectDetail, projects.length]);
+
+  // Listen for project changes from admin panel
+  useEffect(() => {
+    const unsubscribe = subscribeToProjectChanges(async () => {
+      try {
+        const data = await getProjects();
+        setProjects(data || fallbackProjects);
+      } catch (err) {
+        console.warn('Failed to refresh projects in navbar:', err);
+      }
+    });
+    
+    return unsubscribe;
+  }, []);
 
   const closeMenus = () => {
     setDropdownOpen(false);
@@ -39,12 +87,30 @@ const Navbar = () => {
               </span>
               {dropdownOpen && (
                 <ul className="navbar__dropdown">
-                  <li><Link to="/projects" onClick={closeMenus}>All Projects</Link></li>
-                  {projects.map(project => (
-                    <li key={project.id}>
-                      <Link to={`/projects/${project.id}`} onClick={closeMenus}>{project.title}</Link>
-                    </li>
-                  ))}
+                  <li>
+                    <Link 
+                      to="/projects" 
+                      onClick={closeMenus}
+                      className={location.pathname === '/projects' ? 'active' : ''}
+                    >
+                      All Projects
+                    </Link>
+                  </li>
+                  {projects && projects.length > 0 ? (
+                    projects.map(project => (
+                      <li key={project.id}>
+                        <Link 
+                          to={`/projects/${project.id}`} 
+                          onClick={closeMenus}
+                          className={location.pathname === `/projects/${project.id}` ? 'active' : ''}
+                        >
+                          {project.title}
+                        </Link>
+                      </li>
+                    ))
+                  ) : (
+                    <li className="navbar__dropdown-empty">Loading projects...</li>
+                  )}
                 </ul>
               )}
             </>

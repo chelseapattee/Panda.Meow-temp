@@ -10,6 +10,8 @@ import {
 import AdminProjectList from '../components/AdminProjectList';
 import AdminProjectForm from '../components/AdminProjectForm';
 import AdminDeleteModal from '../components/AdminDeleteModal';
+import { migrateExistingProjects } from '../utils/migrateProjects';
+import { triggerProjectRefresh } from '../utils/projectSync';
 
 const Admin = () => {
   const [authed, setAuthed] = useState(false);
@@ -20,6 +22,7 @@ const Admin = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [migrationResult, setMigrationResult] = useState(null);
 
   useEffect(() => {
     getSession().then(({ data: session }) => {
@@ -70,6 +73,7 @@ const Admin = () => {
     try {
       await createProject(data);
       await loadProjects();
+      triggerProjectRefresh(); // Notify navbar to refresh
       setSection('projects');
     } catch (err) {
       setError('Failed to add project.');
@@ -90,6 +94,7 @@ const Admin = () => {
     try {
       await updateProject(editProject.id, data);
       await loadProjects();
+      triggerProjectRefresh(); // Notify navbar to refresh
       setEditProject(null);
       setSection('projects');
     } catch (err) {
@@ -123,6 +128,7 @@ const Admin = () => {
     try {
       await deleteProject(deleteProjectObj.id);
       await loadProjects();
+      triggerProjectRefresh(); // Notify navbar to refresh
       setDeleteProjectObj(null);
       setShowDeleteModal(false);
     } catch (err) {
@@ -146,6 +152,24 @@ const Admin = () => {
   const handleGoToProjects = () => {
     setEditProject(null);
     setSection('projects');
+  };
+
+  // Migration handler
+  const handleMigrateProjects = async () => {
+    setLoading(true);
+    setError(null);
+    setMigrationResult(null);
+    try {
+      const result = await migrateExistingProjects();
+      setMigrationResult(result);
+      if (result.success) {
+        await loadProjects(); // Refresh the projects list
+      }
+    } catch (err) {
+      setError('Migration failed: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!authed) {
@@ -177,6 +201,17 @@ const Admin = () => {
       <main className="admin-content">
         {loading && <div>Loading...</div>}
         {error && <div style={{ color: 'red', margin: '8px 0' }}>{error}</div>}
+        {migrationResult && (
+          <div style={{ 
+            color: migrationResult.success ? 'green' : 'red', 
+            margin: '8px 0', 
+            padding: '8px', 
+            border: `1px solid ${migrationResult.success ? 'green' : 'red'}`,
+            borderRadius: '4px'
+          }}>
+            {migrationResult.message || migrationResult.error}
+          </div>
+        )}
         {section === 'projects' && !loading && (
           <>
             <AdminProjectList
@@ -185,7 +220,48 @@ const Admin = () => {
               onDelete={handleStartDelete}
             />
             <br />
-            <button onClick={handleGoToAdd}>Add New Project</button>
+            <div style={{ 
+              padding: '1rem', 
+              background: '#f0f9ff', 
+              border: '1px solid #0284c7',
+              borderRadius: '8px',
+              marginBottom: '1rem'
+            }}>
+              <h4 style={{ margin: '0 0 0.5rem 0', color: '#0c4a6e' }}>💡 Make Projects Persistent</h4>
+              <p style={{ margin: '0 0 0.5rem 0', color: '#075985' }}>
+                After adding or editing projects, run this command to update the seed file:
+              </p>
+              <code style={{ 
+                display: 'block', 
+                background: '#1e293b', 
+                color: '#f1f5f9',
+                padding: '0.5rem',
+                borderRadius: '4px',
+                fontFamily: 'monospace'
+              }}>
+                cd portfolio && node update-seed-file.js
+              </code>
+              <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', color: '#64748b' }}>
+                This ensures your projects survive database resets.
+              </p>
+            </div>
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+              <button onClick={handleGoToAdd}>Add New Project</button>
+              <button 
+                onClick={handleMigrateProjects}
+                style={{ 
+                  backgroundColor: '#4F46E5', 
+                  color: 'white', 
+                  border: 'none',
+                  padding: '8px 16px',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+                disabled={loading}
+              >
+                Migrate Example Projects
+              </button>
+            </div>
             <AdminDeleteModal
               open={showDeleteModal}
               project={deleteProjectObj}

@@ -4,17 +4,47 @@ import { uploadFile, deleteFile } from '../api/files';
 const initialState = {
   title: '',
   description: '',
+  company: '',
   technologies: '',
+  responsibilities: '',
+  challenges: '',
+  solutions: '',
+  categories: '',
+  outcomes: '[]', // JSON string for array of outcome objects
   images: [], // { file, previewUrl, imageName, storagePath, publicUrl }
 };
 
-export default function AdminProjectForm({ projectId = null, onSave }) {
+export default function AdminProjectForm({ projectId = null, onSubmit, onSave, initialData }) {
+  const handleSave = onSubmit || onSave; // Support both prop names for backward compatibility
   const [form, setForm] = useState(initialState);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const errorRef = React.useRef();
   const successRef = React.useRef();
+
+  // Initialize form with existing data when editing
+  useEffect(() => {
+    if (initialData) {
+      setForm({
+        title: initialData.title || '',
+        description: initialData.description || '',
+        company: initialData.company || '',
+        technologies: Array.isArray(initialData.technologies) ? initialData.technologies.join(', ') : (initialData.technologies || ''),
+        responsibilities: Array.isArray(initialData.responsibilities) ? initialData.responsibilities.join(', ') : (initialData.responsibilities || ''),
+        challenges: Array.isArray(initialData.challenges) ? initialData.challenges.join(', ') : (initialData.challenges || ''),
+        solutions: Array.isArray(initialData.solutions) ? initialData.solutions.join(', ') : (initialData.solutions || ''),
+        categories: Array.isArray(initialData.categories) ? initialData.categories.join(', ') : (initialData.categories || ''),
+        outcomes: initialData.outcomes ? JSON.stringify(initialData.outcomes) : '[]',
+        images: initialData.image_urls ? initialData.image_urls.map((url, index) => ({
+          previewUrl: url,
+          publicUrl: url,
+          imageName: `existing_${index}`,
+          storagePath: null // Existing images don't have storage paths tracked
+        })) : []
+      });
+    }
+  }, [initialData]);
 
   useEffect(() => {
     if (error && errorRef.current) {
@@ -89,13 +119,35 @@ export default function AdminProjectForm({ projectId = null, onSave }) {
     e.preventDefault();
     // Collect public URLs for image_urls
     const image_urls = form.images.map(img => img.publicUrl || img.previewUrl);
+    
+    // Convert technologies string to array
+    const technologiesArray = form.technologies 
+      ? form.technologies.split(',').map(tech => tech.trim()).filter(tech => tech)
+      : [];
+    
+    // Parse outcomes with error handling
+    let outcomes = [];
+    try {
+      outcomes = form.outcomes ? JSON.parse(form.outcomes) : [];
+    } catch (e) {
+      setError('Invalid JSON format in outcomes field');
+      return;
+    }
+    
     const projectData = {
       title: form.title,
       description: form.description,
-      technologies: form.technologies,
+      technologies: technologiesArray,
       image_urls,
+      // Required fields for database schema with defaults
+      company: form.company || '',
+      responsibilities: form.responsibilities ? form.responsibilities.split(',').map(r => r.trim()).filter(r => r) : [],
+      challenges: form.challenges ? form.challenges.split(',').map(c => c.trim()).filter(c => c) : [],
+      solutions: form.solutions ? form.solutions.split(',').map(s => s.trim()).filter(s => s) : [],
+      categories: form.categories ? form.categories.split(',').map(cat => cat.trim()).filter(cat => cat) : [],
+      outcomes
     };
-    if (onSave) onSave(projectData);
+    if (handleSave) handleSave(projectData);
   };
 
   return (
@@ -109,8 +161,41 @@ export default function AdminProjectForm({ projectId = null, onSave }) {
         <textarea id="description-input" name="description" value={form.description} onChange={handleChange} required />
       </div>
       <div>
+        <label htmlFor="company-input">Company (optional)</label>
+        <input id="company-input" name="company" value={form.company} onChange={handleChange} />
+      </div>
+      <div>
         <label htmlFor="technologies-input">Technologies (comma separated)</label>
         <input id="technologies-input" name="technologies" value={form.technologies} onChange={handleChange} />
+      </div>
+      <div>
+        <label htmlFor="responsibilities-input">Responsibilities (comma separated)</label>
+        <textarea id="responsibilities-input" name="responsibilities" value={form.responsibilities} onChange={handleChange} />
+      </div>
+      <div>
+        <label htmlFor="challenges-input">Challenges (comma separated)</label>
+        <textarea id="challenges-input" name="challenges" value={form.challenges} onChange={handleChange} />
+      </div>
+      <div>
+        <label htmlFor="solutions-input">Solutions (comma separated)</label>
+        <textarea id="solutions-input" name="solutions" value={form.solutions} onChange={handleChange} />
+      </div>
+      <div>
+        <label htmlFor="categories-input">Categories (comma separated)</label>
+        <input id="categories-input" name="categories" value={form.categories} onChange={handleChange} />
+      </div>
+      <div>
+        <label htmlFor="outcomes-input">Outcomes (JSON format)</label>
+        <textarea 
+          id="outcomes-input" 
+          name="outcomes" 
+          value={form.outcomes} 
+          onChange={handleChange} 
+          placeholder='[{"metric":"Performance","value":"25%","description":"Improved load time"}]' 
+        />
+        <small style={{ fontSize: '0.9em', color: '#666' }}>
+          Format: [{"{"}"metric":"string","value":"string","description":"string"{"}"}]
+        </small>
       </div>
       <div>
         <label htmlFor="images-input">Images</label>

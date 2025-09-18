@@ -119,7 +119,20 @@
           background: #333;
           color: #b3e0ff;
         }
+        &.active {
+          background: #4F46E5;
+          color: #fff;
+          opacity: 1;
+          font-weight: 500;
+        }
       }
+    }
+    
+    &__dropdown-empty {
+      padding: 0.5rem 1.25rem;
+      color: #999;
+      font-style: italic;
+      font-size: 0.9rem;
     }
   }
 

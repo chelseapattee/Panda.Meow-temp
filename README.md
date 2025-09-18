@@ -108,19 +108,53 @@ When running locally, Supabase provides:
 - Studio: http://localhost:54323
 - Database: localhost:54322
 
-## 🎨 Features
+## 🎨 User Interface Overview
 
-- **Responsive Design**: Optimized for desktop and mobile devices
-- **Admin Panel**: Password-protected content management system
-- **Project Management**: CRUD operations for projects with image upload
-- **Modern UI**: Clean, professional design with custom typography
-- **Fast Performance**: Optimized React application with efficient data loading
+### **End-User Interface**
 
-### Admin Features
-- Password-protected admin panel at `/admin`
-- CRUD operations for projects
-- Image upload and management
-- Form validation and error handling
+#### **Public Pages & Navigation**
+- **Landing Page** (`/`): Clean introduction with personal branding, featuring Chelsea's name, role, and navigation to projects/contact
+- **Projects Gallery** (`/projects`): Grid layout displaying project cards with cover images and titles
+- **Project Detail** (`/projects/:id`): Individual project showcase pages
+- **Contact Page** (`/contact`): Contact form and information
+- **About Page** (`/about`): Personal/professional background
+
+#### **Navigation Design**
+- **Responsive Navbar**: Logo (letter "C" in branded SVG), company name "CHELSEA PATTEE"
+- **Smart Project Navigation**: When viewing project details, "Projects" becomes a dropdown showing all available projects
+- **Mobile-First**: Hamburger menu for mobile devices with backdrop overlay
+- **Visual States**: Active page highlighting, hover states
+
+#### **Visual Design System**
+- **Typography**: Custom fonts (GT Haptik, Basis Grotesque) for professional aesthetic
+- **Color Scheme**: Purple/indigo branding (#4F46E5) with clean white backgrounds
+- **SCSS Architecture**: Component-specific styling with shared font imports
+- **Responsive Grid**: Flexible project card layout adapting to screen sizes
+
+### **Admin Interface**
+
+#### **Authentication Flow**
+- **Protected Route**: `/admin` requires email/password authentication via Supabase
+- **Session Management**: Persistent login sessions with logout functionality
+- **Access Control**: All admin operations validate session before proceeding
+
+#### **Admin Dashboard Features**
+- **Navigation Tabs**: Projects view, Add Project, Edit Mode, Logout
+- **Project Management**: Full CRUD operations with rich form interface
+- **File Management**: Multi-image upload with Supabase Storage integration
+- **UX Features**: Loading states, error handling, accessibility, delete protection
+
+#### **User Experience Features**
+- **Loading States**: Visual feedback during operations
+- **Error Handling**: User-friendly error messages with ARIA live regions
+- **Accessibility**: Proper form labels, focus management, keyboard navigation
+- **Success Feedback**: Confirmation messages for completed actions
+- **Delete Protection**: Confirmation modal for destructive actions
+
+## 🔄 User Flows
+
+**Public Users**: Landing → Projects → Individual Project Details → Contact  
+**Admins**: Login → Dashboard → Add/Edit/Delete Projects → Manage Images → Logout
 
 ## 🧪 Testing
 
