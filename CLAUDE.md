@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Repository Structure
 
 This is a full-stack portfolio application with:
+
 - `portfolio/`: React frontend application
 - `supabase/`: Backend configuration and schema
 - `tasks/`: Product requirements and task documentation
@@ -14,6 +15,7 @@ This is a full-stack portfolio application with:
 All commands should be run from the `portfolio/` directory unless specified otherwise:
 
 ### Frontend (React)
+
 ```bash
 cd portfolio
 npm install          # Install dependencies
@@ -24,6 +26,7 @@ npm run lint:scss    # Lint SCSS files
 ```
 
 ### Backend (Supabase)
+
 ```bash
 supabase start       # Start local Supabase (requires Docker Desktop)
 supabase stop        # Stop local Supabase
@@ -32,13 +35,15 @@ supabase reset       # Reset local database
 ```
 
 Supabase local services:
-- API: http://localhost:54321
-- Studio: http://localhost:54323
+
+- API: <http://localhost:54321>
+- Studio: <http://localhost:54323>
 - Database: localhost:54322
 
 ## Architecture Overview
 
 ### Frontend Stack
+
 - **React 19** with React Router DOM for routing
 - **SCSS** for styling with custom fonts (GT Haptik, Basis Grotesque)
 - **Supabase JS client** for backend communication
@@ -46,6 +51,7 @@ Supabase local services:
 - **Jest/Testing Library** for unit tests
 
 ### Backend Stack
+
 - **Supabase** for backend-as-a-service
 - **PostgreSQL** database with two main tables:
   - `projects`: Main project metadata (title, description, technologies, outcomes, etc.)
@@ -55,6 +61,7 @@ Supabase local services:
 - **Database schema** defined in `supabase/schema.sql`
 
 ### Key Frontend Structure
+
 - `src/pages/`: Main route components (Landing, Projects, Admin, etc.)
 - `src/components/`: Reusable UI components
 - `src/api/`: API layer for Supabase operations
@@ -66,6 +73,7 @@ Supabase local services:
 ### End-User Interface
 
 #### Public Pages & Routes
+
 - `/` - Landing page with personal branding and navigation
 - `/projects` - Project gallery with card grid layout
 - `/projects/:id` - Individual project detail pages
@@ -73,10 +81,11 @@ Supabase local services:
 - `/about` - Personal/professional background
 
 #### Navigation & Design
+
 - **Responsive Navbar**: Custom logo (SVG "C"), "CHELSEA PATTEE" branding
 - **Smart Navigation**: Projects dropdown when viewing project details
 - **Mobile-First**: Hamburger menu with backdrop overlay
-- **Design System**: 
+- **Design System**:
   - Custom fonts: GT Haptik, Basis Grotesque
   - Brand colors: Purple/indigo (#4F46E5)
   - SCSS component architecture
@@ -85,14 +94,16 @@ Supabase local services:
 ### Admin Interface
 
 #### Authentication & Access Control
+
 - Protected `/admin` route with Supabase email/password auth
 - Session management with persistent login
 - All admin operations validate session before proceeding
 
 #### Admin Dashboard Features
+
 - **Navigation Tabs**: Projects, Add Project, Edit Mode, Logout
 - **Project Management**: Full CRUD operations
-- **Rich Form Interface**: 
+- **Rich Form Interface**:
   - Title, description, technologies fields
   - Multi-image upload with drag/drop
   - Real-time previews with remove functionality
@@ -101,6 +112,7 @@ Supabase local services:
 - **UX Features**: Loading states, error handling, accessibility, delete protection
 
 #### User Flows
+
 - **Public**: Landing → Projects → Project Details → Contact
 - **Admin**: Login → Dashboard → Add/Edit/Delete Projects → Image Management → Logout
 
@@ -109,6 +121,7 @@ Supabase local services:
 The application requires these environment files:
 
 `portfolio/.env.local`:
+
 ```
 REACT_APP_SUPABASE_URL=http://localhost:54321
 REACT_APP_SUPABASE_ANON_KEY=your-anon-key
@@ -117,6 +130,7 @@ REACT_APP_SUPABASE_ANON_KEY=your-anon-key
 Get the keys by running `supabase status` after starting the local environment.
 
 ## Testing Strategy
+
 - Unit tests for components using Jest and Testing Library
 - Test files located in `__tests__/` directories and alongside source files (`.test.js`)
 - Coverage reports generated in `coverage/` directory
@@ -126,18 +140,44 @@ Get the keys by running `supabase status` after starting the local environment.
 ## Development Workflow Integration
 
 ### Cursor Rules
+
 This repository includes Cursor rules in `.cursor/rules/` that provide structured workflows:
+
 - `create-prd.mdc`: Guidelines for creating Product Requirements Documents with clarifying questions
 - `generate-tasks.mdc`: Task list generation from PRDs with two-phase approach (parent tasks, then sub-tasks)
 - `process-task-list.mdc`: Task management protocols requiring user approval between sub-tasks
 
 ### Task Management Process
+
 1. **PRD Creation**: Use Cursor rule to create detailed requirements documents in `/tasks`
 2. **Task Generation**: Convert PRDs to actionable task lists with file identification
 3. **Implementation**: Work through tasks one sub-task at a time with user approval
 4. **Progress Tracking**: Mark completed tasks and maintain "Relevant Files" section
 
+### Git Flow Commands
+
+```bash
+# Start a new feature
+git checkout develop
+git pull origin develop
+git checkout -b feature/your-feature-name
+
+# Finish a feature (merge to develop)
+git checkout develop
+git merge --no-ff feature/your-feature-name
+git push origin develop
+
+# Create a release
+git checkout develop
+git checkout -b release/v1.0.0
+# ... make release changes ...
+git checkout main
+git merge --no-ff release/v1.0.0
+git tag -a v1.0.0 -m "Release v1.0.0"
+```
+
 ## Additional Notes
+
 - The repository contains a `portfolio-refactor/` directory (likely for experimental changes)
 - Database seeding is configured via `supabase/seed.sql`
 - Project uses localforage for client-side data persistence alongside Supabase
