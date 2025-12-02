@@ -1,6 +1,6 @@
 -- Seed data for portfolio development
 -- This file runs automatically after migrations during db reset
--- Generated on 2025-12-02T01:28:56.741Z
+-- Generated on 2025-12-02T01:21:41.122Z
 -- Projects: 11, Sections: 49
 
 -- Insert projects
@@ -17,6 +17,19 @@ INSERT INTO projects (id, title, description, company, technologies, responsibil
   ARRAY['Web Development', 'Frontend'],
   '[{"value":"40%","metric":"Performance","description":"Improvement in page load speed"},{"value":"95%","metric":"User Satisfaction","description":"Positive user feedback rating"}]'::jsonb,
   ARRAY['https://picsum.photos/800/600?random=1']
+),
+(
+  '4aba644f-4d73-419f-b262-33bfefca5c9c',
+  'Facility Equipment Configuration',
+  'This project focused on creating an efficient system for administrators to set up facility management systems. The challenge was to create a flow that allows an administrator to set up required properties and determine what fields are configurable, resulting in equipment definitions that site managers can use to expedite installation without sacrificing flexibility.',
+  'Iteros',
+  ARRAY['Angular', 'TypeScript', 'Node.js', 'HTML', 'SCSS', 'Sketch'],
+  ARRAY['Information Architecture', 'User Experience Design', 'Wireframing', 'Storyboarding', 'Interface Design', 'Software Development'],
+  ARRAY['Determining minimum required information to start using the software', 'Balancing standardization with flexibility for different sites', 'Creating a consistent equipment setup process across multiple facilities', 'Designing a system that works for chains with similar equipment across locations', 'Developing a clear administrator workflow for equipment definition and configuration'],
+  ARRAY['Collaborated with full development team to create a comprehensive flow diagram', 'Developed a library of equipment definitions for reuse across facilities', 'Implemented configurable property settings with administrator control', 'Created an intuitive interface for equipment setup and management', 'Designed a system that balances standardization with site-specific customization'],
+  ARRAY['Information Architecture', 'UX Design', 'Interaction Design', 'User Research', 'Visual Design'],
+  '[{"value":"Significantly improved","metric":"Setup Efficiency","description":"Streamlined the process of configuring equipment across multiple sites"},{"value":"Enhanced","metric":"Consistency","description":"Ensured consistent equipment installation across all facilities under a single customer"},{"value":"Customizable","metric":"Administrator Control","description":"Gave administrators precise control over which properties could be modified at the site level"}]'::jsonb,
+  ARRAY['https://picsum.photos/800/600?random=200', 'https://picsum.photos/800/600?random=201']
 ),
 (
   '550e8400-e29b-41d4-a716-446655440002',
@@ -132,21 +145,8 @@ INSERT INTO projects (id, title, description, company, technologies, responsibil
   ARRAY['Integrating new IoT capabilities across established products without workflow disruption', 'Coordinating multiple product organizations with different roadmaps and priorities', 'Maintaining ServiceNow design system consistency while adding innovative IoT features', 'Ensuring integration performance didn''t impact existing product functionality', 'Creating cohesive customer experience across multiple enhanced products', 'Managing technical dependencies across complex platform architecture', 'Balancing innovation with platform stability and customer satisfaction'],
   ARRAY['Developed progressive integration approach with phased IoT capability rollout', 'Established regular cross-product planning sessions and dependency management', 'Created reusable IoT components adopted into ServiceNow enterprise design system', 'Implemented comprehensive performance monitoring and optimization protocols', 'Designed API-first integration minimizing disruption to existing workflows', 'Built systematic testing frameworks ensuring integration quality and reliability', 'Created customer communication strategy positioning enhancements as natural evolution'],
   ARRAY['Platform Integration', 'Design System Leadership', 'Cross-Product Coordination', 'API Architecture', 'Customer Experience', 'Component Development'],
-  '[{"value":"3 major products","metric":"Product Enhancement","description":"Successfully enhanced CSM, FSM, and ITAM with integrated IoT capabilities"},{"value":"Multiple components","metric":"Design System Adoption","description":"IoT visualization components adopted into ServiceNow's enterprise design system"},{"value":"99.9%+ uptime","metric":"Performance Preservation","description":"Maintained platform performance standards while adding new capabilities"},{"value":"Zero workflow disruption","metric":"Customer Experience","description":"Enhanced products without requiring customer retraining or process changes"},{"value":"Seamless connectivity","metric":"Integration Success","description":"API-first architecture enabling smooth integration across ServiceNow platform"},{"value":"45+ contributors","metric":"Cross-Team Coordination","description":"Successfully coordinated integration across multiple product organizations"}]'::jsonb,
+  '[{"value":"3 major products","metric":"Product Enhancement","description":"Successfully enhanced CSM, FSM, and ITAM with integrated IoT capabilities"},{"value":"Multiple components","metric":"Design System Adoption","description":"IoT visualization components adopted into ServiceNow''s enterprise design system"},{"value":"99.9%+ uptime","metric":"Performance Preservation","description":"Maintained platform performance standards while adding new capabilities"},{"value":"Zero workflow disruption","metric":"Customer Experience","description":"Enhanced products without requiring customer retraining or process changes"},{"value":"Seamless connectivity","metric":"Integration Success","description":"API-first architecture enabling smooth integration across ServiceNow platform"},{"value":"45+ contributors","metric":"Cross-Team Coordination","description":"Successfully coordinated integration across multiple product organizations"}]'::jsonb,
   ARRAY['https://picsum.photos/800/600?random=700', 'https://picsum.photos/800/600?random=701']
-),
-(
-  '4aba644f-4d73-419f-b262-33bfefca5c9c',
-  'Facility Equipment Configuration',
-  'This project focused on creating an efficient system for administrators to set up facility management systems. The challenge was to create a flow that allows an administrator to set up required properties and determine what fields are configurable, resulting in equipment definitions that site managers can use to expedite installation without sacrificing flexibility.',
-  'Iteros',
-  ARRAY['Angular', 'TypeScript', 'Node.js', 'HTML', 'SCSS', 'Sketch'],
-  ARRAY['Information Architecture', 'User Experience Design', 'Wireframing', 'Storyboarding', 'Interface Design', 'Software Development'],
-  ARRAY['Determining minimum required information to start using the software', 'Balancing standardization with flexibility for different sites', 'Creating a consistent equipment setup process across multiple facilities', 'Designing a system that works for chains with similar equipment across locations', 'Developing a clear administrator workflow for equipment definition and configuration'],
-  ARRAY['Collaborated with full development team to create a comprehensive flow diagram', 'Developed a library of equipment definitions for reuse across facilities', 'Implemented configurable property settings with administrator control', 'Created an intuitive interface for equipment setup and management', 'Designed a system that balances standardization with site-specific customization'],
-  ARRAY['Information Architecture', 'UX Design', 'Interaction Design', 'User Research', 'Visual Design'],
-  '[{"value":"Significantly improved","metric":"Setup Efficiency","description":"Streamlined the process of configuring equipment across multiple sites"},{"value":"Enhanced","metric":"Consistency","description":"Ensured consistent equipment installation across all facilities under a single customer"},{"value":"Customizable","metric":"Administrator Control","description":"Gave administrators precise control over which properties could be modified at the site level"}]'::jsonb,
-  ARRAY['https://picsum.photos/800/600?random=200', 'https://picsum.photos/800/600?random=201', 'http://127.0.0.1:54321/storage/v1/object/public/project-images/1764638903241_Screenshot_2024-05-14_at_1.50.47_PM.png']
 );
 
 -- Insert project sections

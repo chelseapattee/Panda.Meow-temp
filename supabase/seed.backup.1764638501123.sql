@@ -1,7 +1,7 @@
 -- Seed data for portfolio development
 -- This file runs automatically after migrations during db reset
--- Generated on 2025-12-02T01:28:56.741Z
--- Projects: 11, Sections: 49
+-- Generated on 2025-09-15T15:31:54.654Z
+-- Projects: 12, Sections: 49
 
 -- Insert projects
 INSERT INTO projects (id, title, description, company, technologies, responsibilities, challenges, solutions, categories, outcomes, image_urls) VALUES 
@@ -22,7 +22,7 @@ INSERT INTO projects (id, title, description, company, technologies, responsibil
   '550e8400-e29b-41d4-a716-446655440002',
   'Project Two',
   'An innovative mobile-first application that revolutionizes how users interact with digital content. Built with modern frameworks and featuring advanced user interface patterns and seamless responsive design.',
-  'Tech Corp',
+  'Digital Solutions Inc',
   ARRAY['React Native', 'TypeScript', 'Redux', 'API Integration'],
   ARRAY['Mobile Development', 'API Integration', 'User Testing'],
   ARRAY['Mobile performance optimization', 'Complex animations', 'Offline functionality'],
@@ -32,23 +32,10 @@ INSERT INTO projects (id, title, description, company, technologies, responsibil
   ARRAY['https://picsum.photos/800/600?random=2']
 ),
 (
-  'e628e5a7-1a1b-41e6-886b-94c43c2e3273',
-  'My Portfolio Website',
-  'A modern, responsive portfolio website built with React and Supabase. Features dynamic content management, project showcases, and admin panel for easy updates.',
-  'Covington & Park Consulting',
-  ARRAY['React', 'Supabase', 'SCSS', 'JavaScript'],
-  ARRAY['Full-stack Development', 'UI/UX Design', 'Content Strategy'],
-  ARRAY['Database Design', 'Admin Panel UX', 'Responsive Design'],
-  ARRAY['Used Supabase for backend', 'Created intuitive admin interface', 'Mobile-first approach'],
-  ARRAY['Web Development', 'Personal'],
-  '[{"value":"< 2s","metric":"Load Time","description":"Fast loading performance"},{"value":"AA","metric":"Accessibility","description":"WCAG compliance achieved"}]'::jsonb,
-  ARRAY['https://your-image-url.com/screenshot.png']
-),
-(
   '550e8400-e29b-41d4-a716-446655440003',
   'Project Three',
   'A data-driven analytics platform that provides real-time insights and comprehensive reporting capabilities. Features advanced data visualization, custom dashboards, and enterprise-grade security measures.',
-  'Tech Corp',
+  'Analytics Pro',
   ARRAY['Python', 'React', 'D3.js', 'PostgreSQL', 'Docker'],
   ARRAY['Full-stack Development', 'Data Visualization', 'System Architecture'],
   ARRAY['Large dataset processing', 'Real-time updates', 'Security compliance'],
@@ -58,6 +45,45 @@ INSERT INTO projects (id, title, description, company, technologies, responsibil
   ARRAY['https://picsum.photos/800/600?random=3']
 ),
 (
+  'af515421-51d5-4d40-8488-91785078290a',
+  'Test Project',
+  'this is a description',
+  'Acme Corp',
+  ARRAY[]::text[],
+  ARRAY[]::text[],
+  ARRAY[]::text[],
+  ARRAY[]::text[],
+  ARRAY[]::text[],
+  '[]'::jsonb,
+  ARRAY['http://127.0.0.1:54321/storage/v1/object/public/project-images/1757872146002_Screenshot_2025-05-08_at_9.45.31_AM.png']
+),
+(
+  'e628e5a7-1a1b-41e6-886b-94c43c2e3273',
+  'My Portfolio Website',
+  'A modern, responsive portfolio website built with React and Supabase. Features dynamic content management, project showcases, and admin panel for easy updates.',
+  'Personal Project',
+  ARRAY['React', 'Supabase', 'SCSS', 'JavaScript'],
+  ARRAY['Full-stack Development', 'UI/UX Design', 'Content Strategy'],
+  ARRAY['Database Design', 'Admin Panel UX', 'Responsive Design'],
+  ARRAY['Used Supabase for backend', 'Created intuitive admin interface', 'Mobile-first approach'],
+  ARRAY['Web Development', 'Personal'],
+  '[{"value":"< 2s","metric":"Load Time","description":"Fast loading performance"},{"value":"AA","metric":"Accessibility","description":"WCAG compliance achieved"}]'::jsonb,
+  ARRAY['https://your-image-url.com/screenshot.png']
+),
+(
+  '4aba644f-4d73-419f-b262-33bfefca5c9c',
+  'Facility Equipment Configuration',
+  'This project focused on creating an efficient system for administrators to set up facility management systems. The challenge was to create a flow that allows an administrator to set up required properties and determine what fields are configurable, resulting in equipment definitions that site managers can use to expedite installation without sacrificing flexibility.',
+  'Iteros',
+  ARRAY['Angular', 'TypeScript', 'Node.js', 'HTML', 'SCSS', 'Sketch'],
+  ARRAY['Information Architecture', 'User Experience Design', 'Wireframing', 'Storyboarding', 'Interface Design', 'Software Development'],
+  ARRAY['Determining minimum required information to start using the software', 'Balancing standardization with flexibility for different sites', 'Creating a consistent equipment setup process across multiple facilities', 'Designing a system that works for chains with similar equipment across locations', 'Developing a clear administrator workflow for equipment definition and configuration'],
+  ARRAY['Collaborated with full development team to create a comprehensive flow diagram', 'Developed a library of equipment definitions for reuse across facilities', 'Implemented configurable property settings with administrator control', 'Created an intuitive interface for equipment setup and management', 'Designed a system that balances standardization with site-specific customization'],
+  ARRAY['Information Architecture', 'UX Design', 'Interaction Design', 'User Research', 'Visual Design'],
+  '[{"value":"Significantly improved","metric":"Setup Efficiency","description":"Streamlined the process of configuring equipment across multiple sites"},{"value":"Enhanced","metric":"Consistency","description":"Ensured consistent equipment installation across all facilities under a single customer"},{"value":"Customizable","metric":"Administrator Control","description":"Gave administrators precise control over which properties could be modified at the site level"}]'::jsonb,
+  ARRAY['https://picsum.photos/800/600?random=200', 'https://picsum.photos/800/600?random=201']
+),
+(
   'feed8469-e2bc-4fc6-b207-9781bd15527d',
   'Energy Management Platform',
   'At Iteros, we developed an equipment-agnostic energy management system that allows for the creation of equipment definitions from which new equipment inherits properties. This enables consistent configuration in a fraction of the time compared to proprietary manufacturer software. The challenge was to create a modular interface that adapts to each facility''s unique configuration of assets without having to set up a custom dashboard for every customer.',
@@ -65,10 +91,10 @@ INSERT INTO projects (id, title, description, company, technologies, responsibil
   ARRAY['Angular', 'TypeScript', 'Node.js', 'HTML', 'SCSS', 'Sketch'],
   ARRAY['User Research', 'Wireframing', 'Visual Design', 'Frontend Development', 'Information Architecture', 'User Experience Design', 'Interface Design'],
   ARRAY['Creating a system adaptable to diverse facility configurations', 'Designing for multiple user types with different goals', 'Developing a scalable interface for monitoring hundreds or thousands of sites', 'Identifying and displaying the most relevant metrics for different site types', 'Building a modular system that automatically adapts to available assets'],
-  ARRAY['Developed detailed user personas to guide feature development', 'Created a widget-based system adaptable to different site types', 'Designed health indicators based on key performance metrics', 'Implemented a hierarchical navigation system for portfolios and sites', 'Developed site-type specific views (Monitoring, Consumer, Prosumer, Microgrid, etc.)'],
+  ARRAY['Developed detailed user personas to guide feature development', 'Created a widget-based system adaptable to different site types', 'Designed health indicators based on key performance metrics', 'Implemented a hierarchical navigation system for portfolios and sites', 'Developed site-type specific views (Monitoring', 'Consumer', 'Prosumer', 'Microgrid', 'etc.)'],
   ARRAY['Frontend Development', 'Data Visualization', 'UI Design', 'UX Design', 'Information Architecture'],
   '[{"value":"Significantly improved","metric":"Configuration Efficiency","description":"Reduced setup time through inheritance-based equipment definitions"},{"value":"Comprehensive","metric":"Monitoring Capability","description":"Created scalable system capable of monitoring thousands of sites"},{"value":"Enhanced","metric":"User Satisfaction","description":"Tailored interfaces for different user types based on specific goals"}]'::jsonb,
-  ARRAY['https://picsum.photos/800/600?random=100', 'https://picsum.photos/800/600?random=101', 'http://127.0.0.1:54321/storage/v1/object/public/project-images/1764638474843_Screenshot_2024-05-14_at_1.51.46_PM.png']
+  ARRAY['https://picsum.photos/800/600?random=100', 'https://picsum.photos/800/600?random=101']
 ),
 (
   'c81edc23-5701-470f-b861-dcab5767e26f',
@@ -134,19 +160,6 @@ INSERT INTO projects (id, title, description, company, technologies, responsibil
   ARRAY['Platform Integration', 'Design System Leadership', 'Cross-Product Coordination', 'API Architecture', 'Customer Experience', 'Component Development'],
   '[{"value":"3 major products","metric":"Product Enhancement","description":"Successfully enhanced CSM, FSM, and ITAM with integrated IoT capabilities"},{"value":"Multiple components","metric":"Design System Adoption","description":"IoT visualization components adopted into ServiceNow's enterprise design system"},{"value":"99.9%+ uptime","metric":"Performance Preservation","description":"Maintained platform performance standards while adding new capabilities"},{"value":"Zero workflow disruption","metric":"Customer Experience","description":"Enhanced products without requiring customer retraining or process changes"},{"value":"Seamless connectivity","metric":"Integration Success","description":"API-first architecture enabling smooth integration across ServiceNow platform"},{"value":"45+ contributors","metric":"Cross-Team Coordination","description":"Successfully coordinated integration across multiple product organizations"}]'::jsonb,
   ARRAY['https://picsum.photos/800/600?random=700', 'https://picsum.photos/800/600?random=701']
-),
-(
-  '4aba644f-4d73-419f-b262-33bfefca5c9c',
-  'Facility Equipment Configuration',
-  'This project focused on creating an efficient system for administrators to set up facility management systems. The challenge was to create a flow that allows an administrator to set up required properties and determine what fields are configurable, resulting in equipment definitions that site managers can use to expedite installation without sacrificing flexibility.',
-  'Iteros',
-  ARRAY['Angular', 'TypeScript', 'Node.js', 'HTML', 'SCSS', 'Sketch'],
-  ARRAY['Information Architecture', 'User Experience Design', 'Wireframing', 'Storyboarding', 'Interface Design', 'Software Development'],
-  ARRAY['Determining minimum required information to start using the software', 'Balancing standardization with flexibility for different sites', 'Creating a consistent equipment setup process across multiple facilities', 'Designing a system that works for chains with similar equipment across locations', 'Developing a clear administrator workflow for equipment definition and configuration'],
-  ARRAY['Collaborated with full development team to create a comprehensive flow diagram', 'Developed a library of equipment definitions for reuse across facilities', 'Implemented configurable property settings with administrator control', 'Created an intuitive interface for equipment setup and management', 'Designed a system that balances standardization with site-specific customization'],
-  ARRAY['Information Architecture', 'UX Design', 'Interaction Design', 'User Research', 'Visual Design'],
-  '[{"value":"Significantly improved","metric":"Setup Efficiency","description":"Streamlined the process of configuring equipment across multiple sites"},{"value":"Enhanced","metric":"Consistency","description":"Ensured consistent equipment installation across all facilities under a single customer"},{"value":"Customizable","metric":"Administrator Control","description":"Gave administrators precise control over which properties could be modified at the site level"}]'::jsonb,
-  ARRAY['https://picsum.photos/800/600?random=200', 'https://picsum.photos/800/600?random=201', 'http://127.0.0.1:54321/storage/v1/object/public/project-images/1764638903241_Screenshot_2024-05-14_at_1.50.47_PM.png']
 );
 
 -- Insert project sections
