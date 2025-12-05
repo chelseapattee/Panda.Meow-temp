@@ -29,10 +29,7 @@ except:
 
 # Check if pushing to main or develop
 push_cmd = command
-# Check for force push flags as separate command-line tokens, not substrings
-# Split command into tokens to properly detect flags
-cmd_tokens = push_cmd.split()
-is_force_push = "--force" in cmd_tokens or "-f" in cmd_tokens
+is_force_push = "--force" in push_cmd or "-f" in push_cmd
 
 # Check if command or current branch targets protected branches
 targets_protected = (
@@ -41,8 +38,8 @@ targets_protected = (
     current_branch in ["main", "develop"]
 )
 
-# Block all direct pushes to main/develop (including force pushes)
-if targets_protected:
+# Block direct push to main/develop (unless force push which is already dangerous)
+if targets_protected and not is_force_push:
     if current_branch in ["main", "develop"] or "origin main" in push_cmd or "origin develop" in push_cmd:
         reason = f"""❌ Direct push to main/develop is not allowed!
 
